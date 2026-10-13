@@ -1,0 +1,1485 @@
+<!DOCTYPE html>
+<html lang="it" class="h-full bg-slate-950 text-slate-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dante Alighieri - Purgatorio, Canto VI | Rappresentazione Animata e Interattiva</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        amber: { 850: '#6d300c', 950: '#2b1005' },
+                        dante: {
+                            gold: '#d4af37',
+                            crimson: '#8b0000',
+                            bronze: '#cd7f32',
+                            parchment: '#f4e9d8',
+                            darkparchment: '#1e1a15',
+                            night: '#0a0d14'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Cinzel', 'Merriweather', 'Georgia', 'serif'],
+                        sans: ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet">
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #d4af37; }
+
+        .text-shadow-gold {
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.4), 0 0 20px rgba(212, 175, 55, 0.2);
+        }
+        .text-shadow-glow {
+            text-shadow: 0 0 12px rgba(239, 68, 68, 0.6);
+        }
+        .glow-border {
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.25);
+        }
+        .parchment-bg {
+            background-color: #16120e;
+            background-image: radial-gradient(#2a2218 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+        /* Custom pulse animation */
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.05); }
+        }
+        .animate-pulse-glow {
+            animation: pulseGlow 4s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="h-full flex flex-col font-sans overflow-x-hidden parchment-bg selection:bg-amber-600 selection:text-white">
+
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-50 bg-slate-950/90 backdrop-blur-md border-b border-amber-900/40 px-4 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-amber-600 to-red-900 flex items-center justify-center font-serif text-amber-200 font-bold text-xl border border-amber-400/30 shadow-lg">
+                VI
+            </div>
+            <div>
+                <h1 class="font-serif text-lg md:text-xl font-bold tracking-wider text-amber-100 flex items-center gap-2">
+                    PURGATORIO <span class="text-xs uppercase tracking-widest px-2 py-0.5 rounded bg-amber-900/50 text-amber-300 border border-amber-700/50">Canto VI</span>
+                </h1>
+                <p class="text-xs text-slate-400 font-serif italic hidden sm:block">"Ahi serva Italia, di dolore ostello..." &bull; Dante Alighieri</p>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <nav class="flex items-center bg-slate-900/80 p-1 rounded-xl border border-slate-800 text-xs md:text-sm font-medium">
+            <button id="tab-theater" onclick="switchTab('theater')" class="tab-btn px-3 py-1.5 rounded-lg text-amber-400 bg-amber-950/60 border border-amber-800/50 flex items-center gap-1.5 transition-all">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span>Teatro Animato</span>
+            </button>
+            <button id="tab-text" onclick="switchTab('text')" class="tab-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-amber-200 flex items-center gap-1.5 transition-all">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                <span>Testo & Parafrasi</span>
+            </button>
+            <button id="tab-map" onclick="switchTab('map')" class="tab-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-amber-200 flex items-center gap-1.5 transition-all">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
+                <span>Mappa dell'Invettiva</span>
+            </button>
+            <button id="tab-quiz" onclick="switchTab('quiz')" class="tab-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-amber-200 flex items-center gap-1.5 transition-all">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span>Quiz & Studio</span>
+            </button>
+        </nav>
+
+        <!-- Audio TTS Global Controls -->
+        <div class="flex items-center gap-2 bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-xs">
+            <button id="tts-play-btn" onclick="toggleSpeech()" title="Ascolta/Pausa lettura vocale" class="p-1.5 rounded bg-amber-600 text-slate-950 hover:bg-amber-500 font-bold transition">
+                <svg id="tts-icon-play" class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                <svg id="tts-icon-pause" class="w-4 h-4 hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+            </button>
+            <button onclick="stopSpeech()" title="Interrompi lettura" class="p-1.5 rounded bg-slate-800 text-slate-300 hover:bg-slate-700 transition">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M6 6h12v12H6z"/></svg>
+            </button>
+            <div class="flex flex-col">
+                <span class="text-[10px] text-slate-400 uppercase tracking-wider font-semibold">Lettore Vocale</span>
+                <span id="tts-status" class="text-amber-300 text-[11px] font-mono">Inattivo</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main App Container -->
+    <main class="flex-1 flex flex-col min-h-0 relative">
+
+        <!-- ==================== VIEW 1: THEATER / CANVAS SCENES ==================== -->
+        <section id="view-theater" class="view-panel flex-1 flex flex-col lg:flex-row min-h-0">
+            <!-- Left Side: Interactive Canvas -->
+            <div class="relative flex-1 bg-slate-950 flex flex-col overflow-hidden min-h-[350px] lg:min-h-0 border-r border-amber-900/30">
+                <!-- Canvas Overlay Header -->
+                <div class="absolute top-4 left-4 right-4 z-20 flex flex-wrap items-center justify-between gap-2 pointer-events-none">
+                    <div class="bg-slate-900/90 backdrop-blur-md px-3 py-1.5 rounded-lg border border-amber-500/30 text-xs font-serif text-amber-200 pointer-events-auto shadow-xl">
+                        <span id="scene-badge" class="font-bold text-amber-400">Scena 1 di 4</span> &bull; <span id="scene-title">La Calca della Zara e le Anime della Morte Violenta</span>
+                    </div>
+                    <div class="flex items-center gap-2 pointer-events-auto">
+                        <button onclick="changeScene(-1)" class="p-2 rounded-lg bg-slate-900/80 hover:bg-amber-950 border border-slate-700 hover:border-amber-500 text-slate-200 transition">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                        </button>
+                        <span id="scene-dots" class="flex gap-1"></span>
+                        <button onclick="changeScene(1)" class="p-2 rounded-lg bg-slate-900/80 hover:bg-amber-950 border border-slate-700 hover:border-amber-500 text-slate-200 transition">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- HTML5 Animation Canvas -->
+                <canvas id="danteCanvas" class="w-full h-full object-cover flex-1 cursor-pointer block"></canvas>
+
+                <!-- Interactive Character / Object Tooltip Drawer -->
+                <div id="canvas-tooltip" class="absolute bottom-16 left-4 right-4 lg:left-8 lg:right-8 z-20 bg-slate-900/95 backdrop-blur-md p-4 rounded-xl border border-amber-500/40 shadow-2xl transition-all duration-300 transform translate-y-4 opacity-0 pointer-events-none">
+                    <div class="flex justify-between items-start mb-2">
+                        <div class="flex items-center gap-2">
+                            <span id="tooltip-icon" class="text-2xl">👤</span>
+                            <div>
+                                <h3 id="tooltip-name" class="font-serif text-amber-200 font-bold text-base">Nome Personaggio</h3>
+                                <p id="tooltip-role" class="text-xs text-amber-400 font-mono">Ruolo / Versi reference</p>
+                            </div>
+                        </div>
+                        <button onclick="hideTooltip()" class="text-slate-400 hover:text-white p-1 text-lg">&times;</button>
+                    </div>
+                    <p id="tooltip-desc" class="text-xs text-slate-300 leading-relaxed font-sans"></p>
+                </div>
+
+                <!-- Canvas Bottom Controls -->
+                <div class="p-3 bg-slate-950 border-t border-slate-800 flex flex-wrap items-center justify-between text-xs text-slate-400 gap-2 z-10">
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span>Fai click sugli elementi o sulle anime nel Canvas per scoprirne la storia.</span>
+                    </div>
+                    <div class="flex items-center gap-3 font-mono text-[11px]">
+                        <span>Versi: <strong id="scene-lines-range" class="text-amber-300">1-27</strong></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Active Scene Text & Commentary Sidepanel -->
+            <div class="w-full lg:w-96 bg-slate-900 flex flex-col h-[400px] lg:h-auto border-l border-slate-800 overflow-hidden">
+                <!-- Sidepanel Tab Header -->
+                <div class="p-3 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
+                    <h2 class="font-serif text-xs uppercase tracking-wider font-semibold text-amber-300 flex items-center gap-2">
+                        <svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                        Quadri del Canto
+                    </h2>
+                    <span id="side-scene-num" class="text-[11px] font-mono px-2 py-0.5 rounded bg-amber-950 text-amber-400 border border-amber-800/60">Scena 1/4</span>
+                </div>
+
+                <!-- Scene Selector Buttons -->
+                <div class="grid grid-cols-2 gap-1.5 p-2 bg-slate-950/60 border-b border-slate-800">
+                    <button onclick="setScene(0)" id="sc-btn-0" class="sc-select-btn p-2 text-left rounded bg-amber-900/40 border border-amber-600/60 text-amber-200 text-xs transition">
+                        <div class="font-serif font-semibold text-[11px] truncate">1. La Zara e le Anime</div>
+                        <div class="text-[10px] text-slate-400">vv. 1-27</div>
+                    </button>
+                    <button onclick="setScene(1)" id="sc-btn-1" class="sc-select-btn p-2 text-left rounded bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-400 text-xs transition">
+                        <div class="font-serif font-semibold text-[11px] truncate">2. Preghiera & Beatrice</div>
+                        <div class="text-[10px] text-slate-400">vv. 28-57</div>
+                    </button>
+                    <button onclick="setScene(2)" id="sc-btn-2" class="sc-select-btn p-2 text-left rounded bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-400 text-xs transition">
+                        <div class="font-serif font-semibold text-[11px] truncate">3. L'Abbraccio a Sordello</div>
+                        <div class="text-[10px] text-slate-400">vv. 58-75</div>
+                    </button>
+                    <button onclick="setScene(3)" id="sc-btn-3" class="sc-select-btn p-2 text-left rounded bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-400 text-xs transition">
+                        <div class="font-serif font-semibold text-[11px] truncate">4. Invettiva all'Italia</div>
+                        <div class="text-[10px] text-slate-400">vv. 76-151</div>
+                    </button>
+                </div>
+
+                <!-- Scrollable Text & Notes for current scene -->
+                <div id="side-content" class="flex-1 overflow-y-auto p-4 space-y-4">
+                    <!-- Dynamic insertion via JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== VIEW 2: FULL TEXT & PARAPHRASE ==================== -->
+        <section id="view-text" class="view-panel flex-1 hidden flex-col min-h-0 bg-slate-950 p-4 lg:p-6 overflow-y-auto">
+            <div class="max-w-5xl mx-auto w-full space-y-6">
+                <!-- Filter & Search bar -->
+                <div class="flex flex-wrap items-center justify-between gap-4 p-4 rounded-xl bg-slate-900 border border-amber-900/30">
+                    <div>
+                        <h2 class="font-serif text-xl text-amber-200 font-bold">Testo Integrale e Parafrasi</h2>
+                        <p class="text-xs text-slate-400">I 151 versi del Canto VI con spiegazione a fronte ed evidenziatore vocale.</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <button onclick="toggleParaphraseAll(true)" class="px-3 py-1.5 text-xs bg-slate-800 hover:bg-slate-700 text-amber-300 rounded border border-slate-700 transition">
+                            Espandi Tutto
+                        </button>
+                        <button onclick="toggleParaphraseAll(false)" class="px-3 py-1.5 text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 rounded border border-slate-700 transition">
+                            Riduci Tutto
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Terzetti List Container -->
+                <div id="full-text-container" class="space-y-4">
+                    <!-- Populated dynamically with terzetti -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== VIEW 3: MAP OF THE INVECTIVE ==================== -->
+        <section id="view-map" class="view-panel flex-1 hidden flex-col min-h-0 bg-slate-950 p-4 lg:p-6 overflow-y-auto">
+            <div class="max-w-6xl mx-auto w-full space-y-6">
+                <div class="p-5 rounded-2xl bg-gradient-to-r from-red-950/80 via-slate-900 to-amber-950/80 border border-red-900/40 shadow-2xl">
+                    <h2 class="font-serif text-2xl text-amber-200 font-bold mb-2 flex items-center gap-2">
+                        <span>🗺️</span> Mappa Politica ed Allegorica dell'Invettiva (vv. 76-151)
+                    </h2>
+                    <p class="text-sm text-slate-300 leading-relaxed max-w-3xl">
+                        In questo canto Dante pronuncia una delle invettive più furiose ed emblematiche della Commedia. Esplora i nodi concettuali, le città contese, le dinastie e le metafore storiche dell'Italia del 1300.
+                    </p>
+                </div>
+
+                <!-- Interactive Network Node Map -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Left: Interactive Node Selector -->
+                    <div class="lg:col-span-1 space-y-2">
+                        <h3 class="text-xs font-serif uppercase tracking-wider text-amber-400 font-bold px-1">Seleziona un Tema o Luogo:</h3>
+                        <div class="space-y-2" id="map-nodes-list">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Right: Detailed Node Info Card -->
+                    <div class="lg:col-span-2 bg-slate-900/90 rounded-2xl p-6 border border-amber-900/40 flex flex-col justify-between min-h-[380px] shadow-2xl">
+                        <div id="map-detail-content">
+                            <!-- Default view -->
+                            <div class="flex flex-col items-center justify-center text-center py-12 space-y-3">
+                                <span class="text-5xl opacity-40">🇮🇹</span>
+                                <h4 class="font-serif text-amber-200 text-lg">Seleziona un elemento dalla lista a sinistra</h4>
+                                <p class="text-xs text-slate-400 max-w-md">Scopri l'analisi dantesca delle fazioni (Montecchi, Cappelletti), del ruolo dell'Impero (Alberto d'Asburgo, Giustiniano) e della satira su Firenze.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== VIEW 4: QUIZ & STUDY MODE ==================== -->
+        <section id="view-quiz" class="view-panel flex-1 hidden flex-col min-h-0 bg-slate-950 p-4 lg:p-6 overflow-y-auto">
+            <div class="max-w-3xl mx-auto w-full space-y-6">
+                <!-- Quiz Header -->
+                <div class="text-center space-y-2">
+                    <span class="px-3 py-1 rounded-full bg-amber-950 text-amber-400 border border-amber-800 text-xs font-semibold uppercase tracking-widest">Modulo di Verifica</span>
+                    <h2 class="font-serif text-3xl font-bold text-amber-100">Quiz sul Canto VI del Purgatorio</h2>
+                    <p class="text-sm text-slate-400">Metti alla prova le tue conoscenze su anime, teologia della preghiera e l'invettiva politica.</p>
+                </div>
+
+                <!-- Quiz Container Card -->
+                <div id="quiz-card" class="bg-slate-900 rounded-2xl border border-amber-900/40 p-6 shadow-2xl space-y-6">
+                    <!-- Progress bar -->
+                    <div class="flex items-center justify-between text-xs text-slate-400 border-b border-slate-800 pb-3">
+                        <span>Domanda <strong id="quiz-current-num" class="text-amber-300">1</strong> di <strong id="quiz-total-num">5</strong></span>
+                        <span>Punteggio: <strong id="quiz-score" class="text-emerald-400">0</strong></span>
+                    </div>
+
+                    <!-- Question Text -->
+                    <div id="quiz-question" class="font-serif text-lg text-amber-100 font-semibold leading-snug">
+                        Caricamento domanda...
+                    </div>
+
+                    <!-- Options Grid -->
+                    <div id="quiz-options" class="space-y-3">
+                        <!-- Populated by JS -->
+                    </div>
+
+                    <!-- Explanation Feedback Box -->
+                    <div id="quiz-feedback" class="hidden p-4 rounded-xl text-xs leading-relaxed border"></div>
+
+                    <!-- Next Button -->
+                    <div class="flex justify-end pt-2">
+                        <button id="quiz-next-btn" onclick="nextQuestion()" class="hidden px-5 py-2.5 bg-amber-600 hover:bg-amber-500 text-slate-950 font-bold rounded-xl transition shadow-lg text-sm">
+                            Prossima Domanda &rarr;
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Application Logic & Data Scripts -->
+    <script>
+        // Comprehensive Dataset for Purgatorio Canto VI
+        const cantoData = {
+            title: "Purgatorio - Canto VI",
+            cantica: "Purgatorio",
+            number: 6,
+            summary: "Canto politico del Purgatorio. Nell'Antepurgatorio Dante e Virgilio incontrano le anime di coloro che subirono morte violenta. Segue la spiegazione teologica sul valore delle preghiere e l'incontro fraterno con Sordello da Mantova, che scatena la celebre invettiva dantesca contro i mali d'Italia e la decadenza di Firenze.",
+            scenes: [
+                {
+                    id: 0,
+                    title: "La Calca della Zara e le Anime della Morte Violenta",
+                    linesRange: "vv. 1-27",
+                    desc: "Dante paragona la calca delle anime dell'Antepurgatorio a un vincitore del gioco della zara circondato da curiosi e scommettitori. Le anime, morte per violenza ma pentite in extremis, chiedono preghiere per velocizzare la loro purificazione.",
+                    textSample: `Quando si parte il gioco de la zara,
+colui che perde si riman dolente,
+repetendo le volte, e tristo impara;
+con l'altro se ne va tutta la gente;
+qual va dinanzi, e qual di dietro il prende,
+e qual dallato li si reca a mente...`,
+                    characters: [
+                        { name: "Benincasa da Laterina", role: "L'Aretino decapitato", desc: "Giurista e giudice aretino decapitato a Roma dal celebre brigante Ghin di Tacco per vendetta della condanna di un suo parente." },
+                        { name: "Guccio dei Tarlati", role: "Annegato in caccia/battaglia", desc: "Nobile aretino della famiglia dei Tarlati, annegato nell'Arno durante la battaglia di Campaldino o la caccia." },
+                        { name: "Federigo Novello", role: "Nobile dei Conti Guidi", desc: "Ucciso nei pressi di Bibbiena nel Casentino durante uno scontro tra fazioni ostili." },
+                        { name: "Gano degli Scornigiani", role: "Pisano (figlio di Marzucco)", desc: "Ucciso da Ugolino della Gherardesca; suo padre Marzucco mostrò eccezionale fortezza d'animo perdonando gli assassini al funerale." },
+                        { name: "Conte Orso", role: "Orso degli Alberti", desc: "Ucciso dal cugino Alberto da Mangona per odi di fazione e cupidigia di potere." },
+                        { name: "Pier della Broccia", role: "Gran Ciambellano di Francia", desc: "Cospicua figura alla corte di Filippo III, ingiustamente giustiziato per via delle false accuse dell'invidiosa regina Maria di Brabante." }
+                    ]
+                },
+                {
+                    id: 1,
+                    title: "Il Dubbio sulla Preghiera e Beatrice",
+                    linesRange: "vv. 28-57",
+                    desc: "Dante chiede a Virgilio se la preghiera possa piegare i decreti divini, citando un passo dell'Eneide. Virgilio risponde che la preghiera cristiana vale per l'ardore dell'amore, ma rimanda la comprensione ultima a Beatrice, la luce tra il vero e l'intelletto in cima al monte.",
+                    textSample: `"El par che tu mi nieghi, o luce mia,
+espresso in alcun testo che decreto
+del cielo orazion pieghi...
+Ed elli a me: 'La mia scrittura è piana;
+e la speranza di costor non falla,
+se ben si guarda con la mente sana...'"`,
+                    characters: [
+                        { name: "Virgilio", role: "La Guida della Ragione", desc: "Spiega come l'orazione dei vivi in grazia di Dio possa abbreviare la pena senza abbassare il giudizio divino." },
+                        { name: "Beatrice", role: "La Teologia e la Grazia", desc: "Evocata come la luce superiore che Dante vedrà ridere e felice in vetta al Monte del Purgatorio." }
+                    ]
+                },
+                {
+                    id: 2,
+                    title: "L'Incontro con Sordello da Mantova",
+                    linesRange: "vv. 58-75",
+                    desc: "Virgilio e Dante scorgono un'anima fiera e solitaria, impassibile 'a guisa di leon quando si posa'. Alla semplice menzione della città di Mantova da parte di Virgilio, l'anima si alza e lo abbraccia fraterna: è il trovatore Sordello da Mantova.",
+                    textSample: `" o anima lombarda,
+come ti stavi altera e disdegnosa
+e nel mover de li occhi onesta e tarda!
+...e 'l dolce duca incominciava
+'Mantüa...', e l'ombra, tutta in sé romita,
+surse ver' lui del loco ove pria stava,
+dicendo: 'O Mantoano, io son Sordello
+de la tua terra!'; e l'un l'altro abbracciava."`,
+                    characters: [
+                        { name: "Sordello da Mantova", role: "Trovatore e Poeta Politico", desc: "Poeta lombardo del XIII secolo in lingua d'oc. In vita criticò i sovrani del suo tempo; qui incarna l'amore puro per la patria d'origine." }
+                    ]
+                },
+                {
+                    id: 3,
+                    title: "L'Invettiva 'Ahi serva Italia' e la Malata Firenze",
+                    linesRange: "vv. 76-151",
+                    desc: "Dall'abbraccio tra Virgilio e Sordello scaturisce la violenta e dolorosa invettiva politica di Dante contro l'Italia lacerata dalle guerre civili, l'assenza dell'Imperatore (Alberto d'Asburgo), la Chiesa corrotta e l'incessante ed instabile mutamento di Firenze.",
+                    textSample: `"Ahi serva Italia, di dolore ostello,
+nave sanza nocchiere in gran tempesta,
+non donna di provincie, ma bordello!
+...Fiorenza mia, ben puoi esser contenta
+di questa digression che non ti tocca...
+vedrai te somigliante a quella inferma
+che non può trovar posa in su le piume,
+ma con dar volta suo dolore scherma."`,
+                    characters: [
+                        { name: "Italia", role: "Nave in Tempesta / Giumenta Selvaggia", desc: "Personificata come una cavalla indomita priva di cavaliere, abbandonata dall'Impero." },
+                        { name: "Giustiniano", role: "L'Imperatore del Diritto", desc: "Citato per aver 'racconciato il freno' scrivendo le leggi (Corpus Iuris Civilis), lasciate ora inattuate." },
+                        { name: "Alberto d'Asburgo", role: "L'Imperatore Assente", desc: "Rimproverato da Dante per aver abbandonato il 'giardino de lo 'mperio' (l'Italia) per avidità tedesca." },
+                        { name: "Fiorenza (Firenze)", role: "L'Inferma nel Letto", desc: "Satirizzata per la sua finta pace e la mutabilità continua di leggi, monete, uffici e costumi." }
+                    ]
+                }
+            ],
+            // 151 Lines parsed in Terzetti for Text & Paraphrase view
+            terzetti: [
+                {
+                    lines: [1, 3],
+                    text: "Quando si parte il gioco de la zara,\ncolui che perde si riman dolente,\nrepetendo le volte, e tristo impara;",
+                    paraphrase: "Quando termina il gioco dei dadi (zara), chi perde rimane da solo e triste, ripete tra sé i lanci effettuati e impara a proprie spese;",
+                    notes: "La zara era un popolare e concitato gioco d'azzardo medievale con tre dadi."
+                },
+                {
+                    lines: [4, 6],
+                    text: "con l'altro se ne va tutta la gente;\nqual va dinanzi, e qual di dietro il prende,\ne qual dallato li si reca a mente;",
+                    paraphrase: "tutta la folla dei presenti segue invece il vincitore: c'è chi gli cammina davanti, chi lo trattiene da dietro, chi gli si affianca per farsi notare;",
+                    notes: "Rappresentazione viva e teatrale della calca popolare."
+                },
+                {
+                    lines: [7, 9],
+                    text: "el non s'arresta, e questo e quello intende;\na cui porge la man, più non fa pressa;\ne così da la calca si difende.",
+                    paraphrase: "egli non si ferma, ascolta ora l'uno ora l'altro; quelli a cui dà un cenno o la mano smettono di pressarlo, e in questo modo si libera dalla ressa.",
+                    notes: "Dante usa questo paragone per mostrare come egli stesso si districa tra le anime insistenti."
+                },
+                {
+                    lines: [10, 12],
+                    text: "Tal era io in quella turba spessa,\nvolgendo a loro, e qua e là, la faccia,\ne promettendo mi sciogliea da essa.",
+                    paraphrase: "Così mi trovavo io in mezzo a quella densa folla di anime, volgendo il viso a destra e a sinistra e promettendo preghiere ai vivi per liberarmi da loro.",
+                    notes: "Le anime chiedono a Dante di far pregare i propri parenti rimasti in terra."
+                },
+                {
+                    lines: [13, 15],
+                    text: "Quiv'era l'Aretin che da le braccia\nfiere di Ghin di Tacco ebbe la morte,\ne l'altro ch'annegò correndo in caccia.",
+                    paraphrase: "Lì c'era Benincasa da Laterina, ucciso dalle feroci mani di Ghin di Tacco, e l'altro aretino (Guccio dei Tarlati) annegato mentre inseguiva i nemici o a caccia.",
+                    notes: "Ghin di Tacco era il leggendario e temuto brigante gentiluomo della Val d'Orcia."
+                },
+                {
+                    lines: [16, 18],
+                    text: "Quivi pregava con le mani sporte\nFederigo Novello, e quel da Pisa\nche fé parer lo buon Marzucco forte.",
+                    paraphrase: "Lì pregava a mani giunte Federigo Novello, e il pisano (Gano) la cui morte fece mostrare la straordinaria fortezza d'animo del padre Marzucco degli Scornigiani.",
+                    notes: "Marzucco perdonò gli uccisori del figlio dimostrando santità spirituale."
+                },
+                {
+                    lines: [19, 21],
+                    text: "Vidi conte Orso e l'anima divisa\ndal corpo suo per astio e per inveggia,\ncom'e' dicea, non per colpa commisa;",
+                    paraphrase: "Vidi il conte Orso degli Alberti e l'anima separata dal suo corpo per invidia e rancore di corte, non per una colpa reale commessa;",
+                    notes: "L'invidia di corte è un tema ricorrente (si pensi a Pier della Vigna nell'Inferno)."
+                },
+                {
+                    lines: [22, 24],
+                    text: "Pier da la Broccia dico; e qui proveggia,\nmentr'è di qua, la donna di Brabante,\nsì che però non sia di peggior greggia.",
+                    paraphrase: "parlo di Pier della Broccia; e a questo proposito la regina Maria di Brabante ci pensi bene finché è in vita, affinché per questo non finisca all'Inferno tra i dannati.",
+                    notes: "Dante lancia un ammonimento solenne alla regina di Francia ancora viva nel 1300."
+                },
+                {
+                    lines: [25, 27],
+                    text: "Come libero fui da tutte quante\nquell'ombre che pregar pur ch'altri prieghi,\nsì che s'avacci lor divenir sante,",
+                    paraphrase: "Non appena fui libero da tutte quelle ombre che pregavano soltanto affinché altri pregassero per loro in terra, così da affrettare la loro purificazione,",
+                    notes: "Il suffragio dei vivi abbrevia il soggiorno nell'Antepurgatorio."
+                },
+                {
+                    lines: [28, 30],
+                    text: "io cominciai: \"El par che tu mi nieghi,\no luce mia, espresso in alcun testo\nche decreto del cielo orazion pieghi;",
+                    paraphrase: "io cominciai a dire: 'O mia guida illuminante, sembra che tu neghi esplicitamente in un tuo passo (Eneide VI) che la preghiera possa mutare un decreto divino;",
+                    notes: "Dante solleva un grande dubbio teologico citando l'Eneide virgilianà ('Desine fata deum flecti sperare precando')."
+                },
+                {
+                    lines: [31, 33],
+                    text: "e questa gente prega pur di questo:\nsarebbe dunque loro speme vana,\no non m'è 'l detto tuo ben manifesto?\".",
+                    paraphrase: "eppure queste anime pregano proprio per questo: la loro speranza è dunque vana, oppure non ho compreso bene le tue parole?'.",
+                    notes: "Confronto tra la visione pagana del fato e la misericordia cristiana."
+                },
+                {
+                    lines: [34, 36],
+                    text: "Ed elli a me: \"La mia scrittura è piana;\ne la speranza di costor non falla,\nse ben si guarda con la mente sana;",
+                    paraphrase: "Ed egli a me: 'Ciò che ho scritto è chiaro, e la speranza di costoro non è vana se si considera la questione con un intelletto retto;",
+                    notes: "Virgilio difende sia la coerenza del suo testo classico sia la dottrina cristiana."
+                },
+                {
+                    lines: [37, 39],
+                    text: "ché cima di giudicio non s'avvalla\nperché foco d'amor compia in un punto\nciò che de' sodisfar chi qui s'astalla;",
+                    paraphrase: "poiché l'altezza della giustizia divina non si abbassa se il fuoco della carità compiuto dai vivi soddisfa in un istante il debito di pena di chi si trova qui;",
+                    notes: "L'amore di chi prega in terra compensa l'espiazione temporale dovuta dalle anime."
+                },
+                {
+                    lines: [40, 42],
+                    text: "e là dov'io fermai cotesto punto,\nnon s'ammendava, per pregar, difetto,\nperché 'l priego da Dio era disgiunto.",
+                    paraphrase: "e nel contesto in cui io affermai quel principio, la preghiera non poteva riparare la colpa perché era formulata da pagani, separati da Dio.'",
+                    notes: "Le preghiere pagane non avevano valore d'intercessione poiché prive della grazia."
+                },
+                {
+                    lines: [43, 45],
+                    text: "Veramente a così alto sospetto\nnon ti fermar, se quella nol ti dice\nche lume fia tra 'l vero e lo 'ntelletto.",
+                    paraphrase: "Tuttavia non arrestarti a un dubbio così profondo, se non te ne parla colei che sarà luce tra la verità divina e l'intelletto umano.",
+                    notes: "Limiti della ragione filosofica umana impersonata da Virgilio."
+                },
+                {
+                    lines: [46, 48],
+                    text: "Non so se 'ntendi: io dico di Beatrice;\ntu la vedrai di sopra, in su la vetta\ndi questo monte, ridere e felice\".",
+                    paraphrase: "Non so se comprendi: parlo di Beatrice; tu la vedrai lassù, sulla sommità di questo monte (nel Paradiso Terrestre), sorridente e beata.'",
+                    notes: "Prima menzione esplicita di Beatrice nel Purgatorio."
+                },
+                {
+                    lines: [49, 51],
+                    text: "E io: \"Segnore, andiamo a maggior fretta,\nché già non m'affatico come dianzi,\ne vedi omai che 'l poggio l'ombra getta\".",
+                    paraphrase: "E io: 'Signore, affrettiamo il passo, poiché non provo più la fatica di prima, e vedi che il monte proietta già la sua ombra sul declivio'.",
+                    notes: "In Purgatorio si può salire soltanto durante il giorno; il tramonto si avvicina."
+                },
+                {
+                    lines: [52, 54],
+                    text: "\"Noi anderem con questo giorno innanzi\",\nrispuose, \"quanto più potremo omai;\nma 'l fatto è d'altra forma che non stanzi.",
+                    paraphrase: "'Noi proseguiremo finché c'è luce di giorno', rispose, 'quanto più ci sarà possibile; ma il cammino è ben diverso da come tu immagini.",
+                    notes: "Virgilio avverte che il viaggio verso la cima richiede tempo e soste notturne."
+                },
+                {
+                    lines: [55, 57],
+                    text: "Prima che sie là sù, tornar vedrai\ncolui che già si cuopre de la costa\nsì che 'i suoi raggi tu romper non fai.",
+                    paraphrase: "Prima che tu sia lassù, vedrai ritornare il sole che ora sta nascondendosi dietro il monte, sicché tu non interrompi più i suoi raggi.'",
+                    notes: "Il sole sta tramontando dietro la montagna."
+                },
+                {
+                    lines: [58, 60],
+                    text: "Ma vedi là un'anima che, posta\nsola soletta, inverso noi riguarda:\nquella ne 'nsegnerà la via più tosta\".",
+                    paraphrase: "Ma guarda là un'anima che, rimasta solitaria e disparte, guarda verso di noi: essa ci indicherà la strada più rapida.'",
+                    notes: "Apparizione maestosa e solitaria di Sordello."
+                },
+                {
+                    lines: [61, 63],
+                    text: "Venimmo a lei: o anima lombarda,\ncome ti stavi altera e disdegnosa\ne nel mover de li occhi onesta e tarda!",
+                    paraphrase: "Ci avvicinammo a lei: o anima lombarda, come te ne stavi altiera e magnanima, e come era dignitoso e solenne il movimento dei tuoi occhi!",
+                    notes: "Apostrofe ammirata del Dante poeta all'atteggiamento regale dell'anima."
+                },
+                {
+                    lines: [64, 66],
+                    text: "Ella non ci dicëa alcuna cosa,\nma lasciavane gir, solo sguardando\na guisa di leon quando si posa.",
+                    paraphrase: "Essa non ci diceva alcuna parola, ma ci lasciava avvicinare osservandoci soltanto, a somiglianza di un leone quando riposa.",
+                    notes: "Famosissima similitudine che sottolinea la dignità e fierezza di Sordello."
+                },
+                {
+                    lines: [67, 69],
+                    text: "Pur Virgilio si trasse a lei, pregando\nche ne mostrasse la miglior salita;\ne quella non rispuose al suo dimando,",
+                    paraphrase: "Nondimeno Virgilio si avvicinò a lei, chiedendole di indicarci la risalita migliore; ma quella non rispose direttamente alla richiesta,",
+                    notes: "Sordello mantiene un atteggiamento riservato e regale."
+                },
+                {
+                    lines: [70, 72],
+                    text: "ma di nostro paese e de la vita\nci 'nchiese; e 'l dolce duca incominciava\n\"Mantüa...\", e l'ombra, tutta in sé romita,",
+                    paraphrase: "ma ci domandò della nostra patria e della nostra condizione; e la mia dolce guida cominciava a dire 'Mantova...', e quell'ombra, prima tutta raccolta in sé,",
+                    notes: "La semplice pronuncia della parola 'Mantova' spezza istantaneamente l'isolamento dell'anima."
+                },
+                {
+                    lines: [73, 75],
+                    text: "surse ver' lui del loco ove pria stava,\ndicendo: \"O Mantoano, io son Sordello\nde la tua terra!\"; e l'un l'altro abbracciava.",
+                    paraphrase: "si alzò verso di lui dal punto in cui si trovava, dicendo: 'O Mantovano, io sono Sordello della tua stessa terra!'; e si abbracciarono intensamente l'un l'altro.",
+                    notes: "Climax emotivo: l'amore spontaneo tra conterranei contrapposto alle lotte civili dell'Italia."
+                },
+                {
+                    lines: [76, 78],
+                    text: "Ahi serva Italia, di dolore ostello,\nnave sanza nocchiere in gran tempesta,\nnon donna di provincie, ma bordello!",
+                    paraphrase: "Ahi Italia asservita, dimora di dolore, nave abbandonata senza timoniere in mezzo a una spaventosa tempesta, non più signora di province, ma luogo di disordine e corruzione!",
+                    notes: "Inizio dell'invectiva. Tre celebri metafore: ostello di dolore, nave in tempesta, bordello."
+                },
+                {
+                    lines: [79, 81],
+                    text: "Quell'anima gentil fu così presta,\nsol per lo dolce suon de la sua terra,\ndi fare al cittadin suo quivi festa;",
+                    paraphrase: "Quell'anima nobile fu così sollecita, soltanto al dolce suono del nome della sua terra natia, nel fare festa al suo concittadino;",
+                    notes: "Contrasto tra la fratellanza di Sordello e Virgilio e l'odio fratricida tra gli italiani contemporanei."
+                },
+                {
+                    lines: [82, 84],
+                    text: "e ora in te non stanno sanza guerra\nli vivi tuoi, e l'un l'altro si rode\ndi quei ch'un muro e una fossa serra.",
+                    paraphrase: "e ora all'interno dei tuoi confini i viventi non stanno mai in pace, e si combattono ferocemente a vicenda perfino quelli racchiusi dallo stesso muro e dallo stesso fossato!",
+                    notes: "Guerre intestine civili tra concittadini della medesima cinta muraria."
+                },
+                {
+                    lines: [85, 87],
+                    text: "Cerca, misera, intorno da le prode\nle tue marine, e poi ti guarda in seno,\ns'alcuna parte in te di pace gode.",
+                    paraphrase: "Cerca, o misera Italia, lungo le tue coste marittime e poi guarda nel tuo interno, se c'è una sola regione che goda della pace!",
+                    notes: "Invito ad esplorare tutta la penisola devastata dai conflitti."
+                },
+                {
+                    lines: [88, 90],
+                    text: "Che val perché ti racconciasse il freno\nIustinïano, se la sella è vòta?\nSanz'esso fora la vergogna meno.",
+                    paraphrase: "A che cosa è servito che Giustiniano ti riordinasse le leggi (il freno), se la sella dell'Imperatore è vuota? Senza quel codice di leggi la vergogna sarebbe persino minore.",
+                    notes: "Giustiniano sistemò il diritto romano, ma senza l'Imperatore a far rispettare le leggi, esse restano lettera morta."
+                },
+                {
+                    lines: [91, 93],
+                    text: "Ahi gente che dovresti esser devota,\ne lasciar seder Cesare in la sella,\nse bene intendi ciò che Dio ti nota,",
+                    paraphrase: "Ahi classe ecclesiastica, che dovresti dedicarti alla preghiera e lasciare che l'Imperatore (Cesare) sieda al governo temporale, se ben comprendi le Scritture,",
+                    notes: "Accusa alla Chiesa di usurpazione del potere temporale ('date a Cesare quel che è di Cesare')."
+                },
+                {
+                    lines: [94, 96],
+                    text: "guarda come esta fiera è fatta fella\nper non esser corretta da li sproni,\npoi che ponesti mano a la predella.",
+                    paraphrase: "guarda come questa cavalla (l'Italia) è diventata indomabile e ribelle per non essere stata corretta dagli speroni, da quando gli ecclesiastici hanno preso le briglie!",
+                    notes: "Metafora dell'Italia come cavallo imbestialito privo di cavaliere esperto."
+                },
+                {
+                    lines: [97, 99],
+                    text: "O Alberto tedesco ch'abbandoni\ncostei ch'è fatta indomita e selvaggia,\ne dovresti inforcar li suoi arcioni,",
+                    paraphrase: "O Alberto d'Asburgo germanico, che abbandoni questa terra diventata selvatica e priva di freni, mentre dovresti salire sulla sua sella,",
+                    notes: "Rimprovero diretto all'imperatore eletto Alberto I d'Asburgo, che ignorò l'Italia."
+                },
+                {
+                    lines: [100, 102],
+                    text: "giusto giudicio da le stelle caggia\nsovra 'l tuo sangue, e sia novo e aperto,\ntal che 'l tuo successor temenza n'aggia!",
+                    paraphrase: "un giusto e punitivo giudizio divino scenda dal cielo sulla tua stirpe, e sia così eccezionale ed evidente che il tuo successore (Enrico VII) ne provi timore!",
+                    notes: "Profezia dell'uccisione di Alberto d'Asburgo (avvenuta nel 1308 per mano del nipote)."
+                },
+                {
+                    lines: [103, 105],
+                    text: "Ch'avete tu e 'l tuo padre sofferto,\nper cupidigia di costà distretti,\nche 'l giardin de lo 'mperio sia diserto.",
+                    paraphrase: "Poiché tu e tuo padre (Rodolfo I) avete tollerato, trattenuti in Germania dalla cupidigia dei beni d'oltralpe, che il giardino dell'Impero (l'Italia) diventi un deserto.",
+                    notes: "L'Italia definita amaramente 'il giardino dell'Impero'."
+                },
+                {
+                    lines: [106, 108],
+                    text: "Vieni a veder Montecchi e Cappelletti,\nMonaldi e Filippeschi, uom sanza cura:\ncolor già tristi, e questi con sospetti!",
+                    paraphrase: "Vieni a vedere i Montecchi e i Cappelletti (a Verona), i Monaldi e i Filippeschi (ad Orvieto), o uomo privo di premura: i primi già rovinati e i secondi pieni di sospetti!",
+                    notes: "Citazione delle celebri famiglie e fazioni rivali rivali tra Guelfi e Ghibellini."
+                },
+                {
+                    lines: [109, 111],
+                    text: "Vien, crudel, vieni, e vedi la pressura\nd'i tuoi gentili, e cura lor magagne;\ne vedrai Santafior com'è oscura!",
+                    paraphrase: "Vieni, o spietato, vieni a vedere l'oppressione dei tuoi nobili feudatari e cura le loro piaghe; e vedrai come la contea di Santafiora sia insicura e decaduta!",
+                    notes: "I conti Aldobrandeschi di Santafiora in Maremma sopraffatti dai Senesi."
+                },
+                {
+                    lines: [112, 114],
+                    text: "Vieni a veder la tua Roma che piagne\nvedova e sola, e dì e notte chiama:\n\"Cesare mio, perché non m'accompagne?\".",
+                    paraphrase: "Vieni a vedere la tua Roma che piange, vedova e abbandonata, e notte e giorno grida: 'Mio Imperatore, perché non mi sei accanto?'.",
+                    notes: "Personificazione commovente di Roma abbandonata sia dal Papa che dall'Imperatore."
+                },
+                {
+                    lines: [115, 117],
+                    text: "Vieni a veder la gente quanto s'ama!\ne se nulla di noi pietà ti move,\na vergognar ti vien de la tua fama.",
+                    paraphrase: "Vieni a vedere quanto gli italiani si amino tra loro! E se nessuna compassione per noi ti muove, vieni almeno a vergognarti della tua reputazione!",
+                    notes: "Ironia amara di Dante sull'odio reciproco degli italiani."
+                },
+                {
+                    lines: [118, 120],
+                    text: "E se licito m'è, o sommo Giove\nche fosti in terra per noi crucifisso,\nson li giusti occhi tuoi rivolti altrove?",
+                    paraphrase: "E, se mi è lecito chiederlo, o Sommo Dio (invocato col nome di Giove) che sulla terra fosti crocifisso per noi, i tuoi giusti occhi sono forse volti altrove?",
+                    notes: "Dante interroga audacemente la Provvidenza divina sul perché di tanta ingiustizia."
+                },
+                {
+                    lines: [121, 123],
+                    text: "O è preparazion che ne l'abisso\ndel tuo consiglio fai per alcun bene\nin tutto de l'accorger nostro scisso?",
+                    paraphrase: "Oppure è una preparazione che stai compiendo nell'abisso del tuo inscrutabile disegno per un bene futuro del tutto incomprensibile alla nostra mente?",
+                    notes: "Riconoscimento dell'imperscrutabilità dei disegni di Dio."
+                },
+                {
+                    lines: [124, 126],
+                    text: "Ché le città d'Italia tutte piene\nson di tiranni, e un Marcel diventa\nogne villan che parteggiando viene.",
+                    paraphrase: "Poiché tutte le città d'Italia sono piene di piccoli tiranni, e qualsiasi contadino che si metta a capoparte diventa un Marcello (oppositore dell'Impero).",
+                    notes: "Riferimento a Marco Claudio Marcello, fiero oppositore romano di Giulio Cesare."
+                },
+                {
+                    lines: [127, 129],
+                    text: "Fiorenza mia, ben puoi esser contenta\ndi questa digression che non ti tocca,\nmercé del popol tuo che si argomenta.",
+                    paraphrase: "Fiorenza mia, puoi ben essere soddisfatta di questa mia digressione che non ti riguarda, grazie al tuo popolo che si dà tanto da fare!",
+                    notes: "Inizio dell'apice sarcastico ed ironico rivolto alla patria Firenze."
+                },
+                {
+                    lines: [130, 132],
+                    text: "Molti han giustizia in cuore, e tardi scocca\nper non venir sanza consiglio a l'arco;\nma il popol tuo l'ha in sommo de la bocca.",
+                    paraphrase: "Molti uomini hanno il senso della giustizia nel cuore e sono cauti nel giudicare; ma i tuoi cittadini hanno la giustizia sempre pronta sulla punta della lingua!",
+                    notes: "Firenze parla continuamente di legge ma agisce con avventatezza."
+                },
+                {
+                    lines: [133, 135],
+                    text: "Molti rifiutan lo comune incarco;\nma il popol tuo solicito risponde\nsanza chiamare, e grida: \"I' mi sobbarco!\".",
+                    paraphrase: "Molti rifiutano gli incarichi pubblici per modestia; ma il tuo popolo risponde sollecitamente senza nemmeno essere interpellato e grida: 'Mi prendo io l'incarico!'.",
+                    notes: "Satira sulla brama di potere e di cariche pubbliche dei fiorentini."
+                },
+                {
+                    lines: [136, 138],
+                    text: "Or ti fa lieta, ché tu hai ben onde:\ntu ricca, tu con pace e tu con senno!\nS'io dico 'l ver, l'effetto nol nasconde.",
+                    paraphrase: "Ora rallegrati, perché ne hai ben motivo: tu così ricca, in pace e piena di saggezza! Se dico la verità, i fatti non lo nascondono affatto.",
+                    notes: "Ironia antifrastica: Firenze è in realtà sconvolta dalle lotte tra Bianchi e Neri."
+                },
+                {
+                    lines: [139, 141],
+                    text: "Atene e Lacedemona, che fenno\nl'antiche leggi e furon sì civili,\nfecero al viver bene un picciol cenno",
+                    paraphrase: "Atene e Sparta (Lacedemona), che inventarono le antiche leggi e furono così civili, fecero soltanto un piccolo passo verso il ben vivere comune,",
+                    notes: "Paragone con le grandi poleis greche dell'antichità."
+                },
+                {
+                    lines: [142, 144],
+                    text: "verso di te, che fai tanto sottili\nprovedimenti, ch'a mezzo novembre\nnon giugne quel che tu d'ottobre fili.",
+                    paraphrase: "in confronto a te, Firenze, che emani decreti così sottili (e precari) che quello che tessi a ottobre non dura neppure fino a metà novembre!",
+                    notes: "Instabilità cronica delle leggi fiorentine che cambiano da un mese all'altro."
+                },
+                {
+                    lines: [145, 147],
+                    text: "Quante volte, del tempo che rimembre,\nlegge, moneta, officio e costume\nhai tu mutato, e rinovate membre!",
+                    paraphrase: "Quante volte, a memoria d'uomo, hai cambiato leggi, moneta, magistrature e costumi, e cacciato e richiamato i tuoi cittadini!",
+                    notes: "Sintesi della vertiginosa instabilità politica di Firenze."
+                },
+                {
+                    lines: [148, 151],
+                    text: "E se ben ti ricordi e vedi lume,\nvedrai te somigliante a quella inferma\nche non può trovar posa in su le piume,\nma con dar volta suo dolore scherma.",
+                    paraphrase: "E se ti ricordi bene e vedi chiaramente la realtà, ti vedrai simile a quella donna malata che non riesce a trovare riposo nel letto piumato, e cerca di alleviare il suo dolore voltandosi continuamente dall'altro lato.",
+                    notes: "Sublime similitudine finale: l'inquietudine e le riforme continue di Firenze sono come il vano rigirarsi di una malata nel letto."
+                }
+            ]
+        };
+
+        const mapNodesData = [
+            {
+                id: "italia",
+                title: "🇮🇹 L'Italia Serva e la Cavalla Indomita",
+                subtitle: "vv. 76-78, 94-96",
+                badge: "Allegoria Principale",
+                desc: "Dante definisce l'Italia 'nave sanza nocchiere in gran tempesta' e 'bordello'. La paragona ad una giumenta indomabile perché l'Imperatore ha abbandonato la sella e gli ecclesiastici hanno preteso di guidare le briglie senza saper spronare il cavallo."
+            },
+            {
+                id: "alberto",
+                title: "👑 Alberto I d'Asburgo e l'Impero Assente",
+                subtitle: "vv. 97-105",
+                badge: "Potere Imperiale",
+                desc: "Alberto d'Asburgo (e prima di lui suo padre Rodolfo) è accusato di aver trascurato l'Italia ('il giardino de lo 'mperio') per concentrarsi sulle ambizioni dinastiche in Germania. Dante profetizza il 'giusto giudicio' divino sulla sua stirpe."
+            },
+            {
+                id: "giustiniano",
+                title: "📜 Giustiniano e il Freno delle Leggi",
+                subtitle: "vv. 88-90",
+                badge: "Diritto Romano",
+                desc: "Giustiniano ha riordinato il diritto romano col Corpus Iuris Civilis ('racconciasse il freno'), ma senza un imperatore forte che applichi la legge, le norme rimangono inefficaci."
+            },
+            {
+                id: "roma",
+                title: "🏛️ Roma Vedova e Sola",
+                subtitle: "vv. 112-114",
+                badge: "Capitale Deserta",
+                desc: "Personificata come una donna in lutto che piange notte e giorno chiamando il suo Cesare. Privata sia del Papa (trasferitosi presto ad Avignone) sia dell'Imperatore."
+            },
+            {
+                id: "fazioni",
+                title: "⚔️ Montecchi, Cappelletti, Monaldi e Filippeschi",
+                subtitle: "vv. 106-108",
+                badge: "Guerre Civili",
+                desc: "Le celebri fazioni veronesi (Montecchi e Cappelletti) e orvietane (Monaldi e Filippeschi) rappresentano la lacerazione sanguinosa del tessuto urbano italiano tra Guelfi e Ghibellini."
+            },
+            {
+                id: "firenze",
+                title: "⚜️ Fiorenza la Malata Inquieta",
+                subtitle: "vv. 127-151",
+                badge: "Satira Politica",
+                desc: "Firenze è ritratta con amara ironia antifrastica: ricca e presuntuosa, cambia leggi, moneta ed uffici da ottobre a novembre, somigliando a un'inferma che si rigira continuamente nel letto per schivare il dolore."
+            }
+        ];
+
+        const quizData = [
+            {
+                q: "A quale gioco d'azzardo medievale Dante paragona la calca delle anime dell'Antepurgatorio nei primi versi?",
+                options: ["Il Gioco degli Scacchi", "La Zara", "La Bassetto", "I Tarocchi"],
+                correct: 1,
+                explanation: "La zara era un popolare gioco di dadi. Il perdente rimpiange le giocate, mentre il vincitore viene attorniato dalla folla, proprio come Dante dalle anime."
+            },
+            {
+                q: "Chi è l'anima solitaria e altera 'a guisa di leon quando si posa' che Dante e Virgilio incontrano?",
+                options: ["Ghin di Tacco", "Pier della Broccia", "Sordello da Mantova", "Marzucco degli Scornigiani"],
+                correct: 2,
+                explanation: "È il trovatore Sordello da Mantova. Alla sola pronuncia della parola 'Mantüa' da parte di Virgilio, balza in piedi per abbracciare il connazionale."
+            },
+            {
+                q: "Come risponde Virgilio al dubbio di Dante sull'efficacia della preghiera nel piegare il decreto divino?",
+                options: [
+                    "Le preghiere non servono mai a nulla",
+                    "Il fuoco d'amore delle preghiere dei vivi soddisfa in un punto il debito di pena, senza abbassare il giudizio divino",
+                    "Soltanto l'Imperatore può perdonare le anime",
+                    "Le preghiere valgono solo se pronunciate in latino"
+                ],
+                correct: 1,
+                explanation: "Virgilio spiega che l'ardore di carità di chi prega in terra compensa l'espiazione, ma aggiunge che per i misteri più alti occorrerà ascoltare Beatrice."
+            },
+            {
+                q: "Quale celebre metafora usa Dante per descrivere l'Italia priva di una guida imperiale solida?",
+                options: [
+                    "Un'aquila dalle ali spezzate",
+                    "Una nave sanza nocchiere in gran tempesta",
+                    "Un leone ferito nella foresta",
+                    "Un albero privo di radici"
+                ],
+                correct: 1,
+                explanation: "Dante scrive: 'Ahi serva Italia, di dolore ostello, nave sanza nocchiere in gran tempesta, non donna di provincie, ma bordello!'."
+            },
+            {
+                q: "Con quale potente similitudine si chiude il Canto VI a proposito di Firenze?",
+                options: [
+                    "Una torre battuta dai venti",
+                    "Un marinaio ubriaco al timone",
+                    "Un'inferma nel letto che si rigira continuamente per schermare il dolore",
+                    "Una statua d'oro con i piedi d'argilla"
+                ],
+                correct: 2,
+                explanation: "Dante paragona la continua instabilità di riforme e leggi di Firenze a una donna malata che nel letto non trova riposo e si volta di continuo."
+            }
+        ];
+
+        // Global Application State
+        let currentTab = 'theater';
+        let currentSceneIndex = 0;
+        let speechSynth = window.speechSynthesis;
+        let speechUtterance = null;
+        let isSpeaking = false;
+        let currentSpeakingLine = -1;
+        let quizIndex = 0;
+        let quizScore = 0;
+        let selectedQuizOption = null;
+
+        // Canvas Setup
+        let canvas, ctx;
+        let animationFrameId;
+        let canvasParticles = [];
+        let hoverObject = null;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initCanvas();
+            renderSideSceneContent();
+            renderFullText();
+            renderMapNodes();
+            initQuiz();
+            window.addEventListener('resize', handleResize);
+        });
+
+        // Tab Switch Logic
+        function switchTab(tabId) {
+            currentTab = tabId;
+            document.querySelectorAll('.view-panel').forEach(panel => panel.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('text-amber-400', 'bg-amber-950/60', 'border-amber-800/50');
+                btn.classList.add('text-slate-400');
+            });
+
+            document.getElementById(`view-${tabId}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`tab-${tabId}`);
+            if (activeBtn) {
+                activeBtn.classList.add('text-amber-400', 'bg-amber-950/60', 'border-amber-800/50');
+                activeBtn.classList.remove('text-slate-400');
+            }
+
+            if (tabId === 'theater') {
+                handleResize();
+            }
+        }
+
+        function setScene(index) {
+            currentSceneIndex = index;
+            updateSceneUI();
+        }
+
+        function changeScene(delta) {
+            currentSceneIndex = (currentSceneIndex + delta + cantoData.scenes.length) % cantoData.scenes.length;
+            updateSceneUI();
+        }
+
+        function updateSceneUI() {
+            const sc = cantoData.scenes[currentSceneIndex];
+            document.getElementById('scene-badge').innerText = `Scena ${sc.id + 1} di 4`;
+            document.getElementById('scene-title').innerText = sc.title;
+            document.getElementById('scene-lines-range').innerText = sc.linesRange;
+            document.getElementById('side-scene-num').innerText = `Scena ${sc.id + 1}/4`;
+
+            // Update scene buttons active styling
+            for (let i = 0; i < 4; i++) {
+                const btn = document.getElementById(`sc-btn-${i}`);
+                if (i === currentSceneIndex) {
+                    btn.className = "sc-select-btn p-2 text-left rounded bg-amber-900/40 border border-amber-600/60 text-amber-200 text-xs transition";
+                } else {
+                    btn.className = "sc-select-btn p-2 text-left rounded bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-400 text-xs transition";
+                }
+            }
+
+            // Update dots
+            const dotsContainer = document.getElementById('scene-dots');
+            dotsContainer.innerHTML = cantoData.scenes.map((_, i) => `
+                <span onclick="setScene(${i})" class="w-2 h-2 rounded-full cursor-pointer transition ${i === currentSceneIndex ? 'bg-amber-400 w-4' : 'bg-slate-700'}"></span>
+            `).join('');
+
+            hideTooltip();
+            renderSideSceneContent();
+            initParticlesForScene(currentSceneIndex);
+        }
+
+        function renderSideSceneContent() {
+            const sc = cantoData.scenes[currentSceneIndex];
+            const container = document.getElementById('side-content');
+
+            let charsHtml = sc.characters.map(c => `
+                <div class="p-3 bg-slate-950/80 rounded-lg border border-amber-900/30 hover:border-amber-500/50 transition">
+                    <div class="flex items-center justify-between mb-1">
+                        <span class="font-serif font-bold text-amber-200 text-xs">${c.name}</span>
+                        <span class="text-[10px] text-amber-400 font-mono px-1.5 py-0.5 rounded bg-amber-950/80">${c.role}</span>
+                    </div>
+                    <p class="text-[11px] text-slate-300 leading-relaxed">${c.desc}</p>
+                </div>
+            `).join('');
+
+            container.innerHTML = `
+                <div class="space-y-3">
+                    <div class="p-3 bg-amber-950/20 border-l-2 border-amber-500 rounded-r-lg">
+                        <h4 class="text-xs font-serif font-bold text-amber-300 mb-1">Sintesi Narrativa</h4>
+                        <p class="text-xs text-slate-300 leading-relaxed font-sans">${sc.desc}</p>
+                    </div>
+
+                    <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 font-serif italic text-xs text-amber-100/90 whitespace-pre-line leading-relaxed">
+                        ${sc.textSample}
+                    </div>
+
+                    <div>
+                        <h4 class="text-xs font-serif uppercase tracking-wider text-slate-400 font-bold mb-2">Personaggi & Allegorie</h4>
+                        <div class="space-y-2">
+                            ${charsHtml}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderFullText() {
+            const container = document.getElementById('full-text-container');
+            container.innerHTML = cantoData.terzetti.map((t, idx) => `
+                <div id="terzetto-${idx}" class="terzetto-card bg-slate-900 rounded-xl border border-slate-800 hover:border-amber-900/50 transition p-4 space-y-3">
+                    <div class="flex items-center justify-between border-b border-slate-800/80 pb-2">
+                        <span class="text-xs font-mono font-bold text-amber-400 flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-amber-500"></span> Versi ${t.lines[0]} - ${t.lines[1]}
+                        </span>
+                        <button onclick="playTerzettoAudio(${idx})" class="text-xs flex items-center gap-1 text-slate-400 hover:text-amber-300 bg-slate-950 px-2 py-1 rounded border border-slate-800 transition">
+                            <svg class="w-3.5 h-3.5 text-amber-400" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            <span>Ascolta Terzetto</span>
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Dante Original Verses -->
+                        <div class="font-serif text-sm md:text-base text-amber-100/90 whitespace-pre-line leading-relaxed tracking-wide italic border-l-2 border-amber-600/40 pl-3">
+                            ${t.text}
+                        </div>
+
+                        <!-- Paraphrase & Notes -->
+                        <div class="space-y-2 text-xs text-slate-300 font-sans leading-relaxed">
+                            <div class="bg-slate-950/70 p-3 rounded-lg border border-slate-800">
+                                <span class="font-semibold text-amber-300 block mb-1 uppercase tracking-wider text-[10px]">Parafrasi:</span>
+                                ${t.paraphrase}
+                            </div>
+                            ${t.notes ? `
+                                <div class="text-[11px] text-slate-400 italic flex items-start gap-1">
+                                    <span class="text-amber-500 font-bold">💡 Note:</span>
+                                    <span>${t.notes}</span>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleParaphraseAll(expand) {
+            // Can expand/collapse detailed note cards if needed
+        }
+
+        function renderMapNodes() {
+            const listContainer = document.getElementById('map-nodes-list');
+            listContainer.innerHTML = mapNodesData.map((node, i) => `
+                <button onclick="selectMapNode('${node.id}')" id="map-btn-${node.id}" class="map-node-btn w-full text-left p-3 rounded-xl bg-slate-900 border border-slate-800 hover:border-amber-600/50 transition flex flex-col gap-1">
+                    <div class="flex items-center justify-between">
+                        <span class="font-serif font-bold text-xs text-amber-200">${node.title}</span>
+                        <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-red-950 text-red-300 border border-red-800/40">${node.badge}</span>
+                    </div>
+                    <span class="text-[10px] text-slate-400 font-mono">${node.subtitle}</span>
+                </button>
+            `).join('');
+
+            // Select first node by default
+            selectMapNode('italia');
+        }
+
+        function selectMapNode(id) {
+            const node = mapNodesData.find(n => n.id === id);
+            if (!node) return;
+
+            // Active state on buttons
+            document.querySelectorAll('.map-node-btn').forEach(btn => {
+                btn.classList.remove('border-amber-500', 'bg-amber-950/30');
+                btn.classList.add('border-slate-800', 'bg-slate-900');
+            });
+            const activeBtn = document.getElementById(`map-btn-${id}`);
+            if (activeBtn) {
+                activeBtn.classList.add('border-amber-500', 'bg-amber-950/30');
+            }
+
+            const detailContainer = document.getElementById('map-detail-content');
+            detailContainer.innerHTML = `
+                <div class="space-y-4">
+                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
+                        <div>
+                            <span class="text-xs font-mono text-amber-400">${node.subtitle}</span>
+                            <h3 class="font-serif text-xl font-bold text-amber-100">${node.title}</h3>
+                        </div>
+                        <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-950 text-amber-300 border border-amber-800">${node.badge}</span>
+                    </div>
+
+                    <p class="text-sm text-slate-200 leading-relaxed font-sans">${node.desc}</p>
+
+                    <div class="p-4 rounded-xl bg-slate-950 border border-amber-900/30 space-y-2">
+                        <h4 class="text-xs font-serif uppercase tracking-wider text-amber-400 font-bold">Rilevanza Politico-Teologica</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            Dante unisce la riflessione morale sull'Antepurgatorio all'analisi della crisi istituzionale del XIV secolo: la privazione dell'autorità imperiale ha trasformato le città italiane in teatri di fazionalismo selvaggio.
+                        </p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function toggleSpeech() {
+            if (isSpeaking) {
+                stopSpeech();
+            } else {
+                playTerzettoAudio(0);
+            }
+        }
+
+        function playTerzettoAudio(terzettoIdx) {
+            if (!('speechSynthesis' in window)) {
+                alert("Il tuo browser non supporta la sintesi vocale Web Speech API.");
+                return;
+            }
+
+            stopSpeech();
+
+            const terzetto = cantoData.terzetti[terzettoIdx];
+            if (!terzetto) return;
+
+            const textToRead = terzetto.text.replace(/\n/g, '. ');
+            speechUtterance = new SpeechSynthesisUtterance(textToRead);
+            speechUtterance.lang = 'it-IT';
+            speechUtterance.rate = 0.9; // Slightly slower for poetic clarity
+            speechUtterance.pitch = 1.0;
+
+            speechUtterance.onstart = () => {
+                isSpeaking = true;
+                updateTTSUI(true, `Leggendo vv. ${terzetto.lines[0]}-${terzetto.lines[1]}`);
+                highlightTerzettoCard(terzettoIdx);
+            };
+
+            speechUtterance.onend = () => {
+                isSpeaking = false;
+                updateTTSUI(false, 'Completato');
+                unhighlightTerzettoCards();
+            };
+
+            speechUtterance.onerror = () => {
+                isSpeaking = false;
+                updateTTSUI(false, 'Errore riproduzione');
+                unhighlightTerzettoCards();
+            };
+
+            speechSynth.speak(speechUtterance);
+        }
+
+        function stopSpeech() {
+            if (speechSynth && speechSynth.speaking) {
+                speechSynth.cancel();
+            }
+            isSpeaking = false;
+            updateTTSUI(false, 'Inattivo');
+            unhighlightTerzettoCards();
+        }
+
+        function updateTTSUI(speaking, text) {
+            document.getElementById('tts-status').innerText = text;
+            const playIcon = document.getElementById('tts-icon-play');
+            const pauseIcon = document.getElementById('tts-icon-pause');
+            if (speaking) {
+                playIcon.classList.add('hidden');
+                pauseIcon.classList.remove('hidden');
+            } else {
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
+            }
+        }
+
+        function highlightTerzettoCard(idx) {
+            unhighlightTerzettoCards();
+            const card = document.getElementById(`terzetto-${idx}`);
+            if (card) {
+                card.classList.add('border-amber-500', 'ring-2', 'ring-amber-500/30', 'bg-amber-950/20');
+                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        function unhighlightTerzettoCards() {
+            document.querySelectorAll('.terzetto-card').forEach(card => {
+                card.classList.remove('border-amber-500', 'ring-2', 'ring-amber-500/30', 'bg-amber-950/20');
+            });
+        }
+
+        function initQuiz() {
+            quizIndex = 0;
+            quizScore = 0;
+            renderQuizQuestion();
+        }
+
+        function renderQuizQuestion() {
+            const q = quizData[quizIndex];
+            document.getElementById('quiz-current-num').innerText = quizIndex + 1;
+            document.getElementById('quiz-total-num').innerText = quizData.length;
+            document.getElementById('quiz-score').innerText = quizScore;
+            document.getElementById('quiz-question').innerText = q.q;
+
+            const feedback = document.getElementById('quiz-feedback');
+            feedback.classList.add('hidden');
+
+            const nextBtn = document.getElementById('quiz-next-btn');
+            nextBtn.classList.add('hidden');
+
+            const optionsContainer = document.getElementById('quiz-options');
+            optionsContainer.innerHTML = q.options.map((opt, i) => `
+                <button onclick="selectQuizOption(${i})" id="quiz-opt-${i}" class="w-full text-left p-3.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-amber-600/60 text-slate-200 text-xs md:text-sm transition flex items-center gap-3">
+                    <span class="w-6 h-6 rounded-full bg-slate-800 flex items-center justify-center text-xs font-bold text-amber-400 font-mono">${String.fromCharCode(65 + i)}</span>
+                    <span>${opt}</span>
+                </button>
+            `).join('');
+        }
+
+        function selectQuizOption(index) {
+            const q = quizData[quizIndex];
+            const feedback = document.getElementById('quiz-feedback');
+            const nextBtn = document.getElementById('quiz-next-btn');
+
+            // Disable all option buttons
+            for (let i = 0; i < q.options.length; i++) {
+                const btn = document.getElementById(`quiz-opt-${i}`);
+                btn.onclick = null;
+                if (i === q.correct) {
+                    btn.classList.add('bg-emerald-950/80', 'border-emerald-500', 'text-emerald-200');
+                } else if (i === index) {
+                    btn.classList.add('bg-red-950/80', 'border-red-500', 'text-red-200');
+                }
+            }
+
+            if (index === q.correct) {
+                quizScore += 10;
+                feedback.className = "p-4 rounded-xl text-xs leading-relaxed border bg-emerald-950/60 border-emerald-600/50 text-emerald-200";
+                feedback.innerHTML = `<strong>✨ Corretto!</strong> ${q.explanation}`;
+            } else {
+                feedback.className = "p-4 rounded-xl text-xs leading-relaxed border bg-red-950/60 border-red-600/50 text-red-200";
+                feedback.innerHTML = `<strong>❌ Errato.</strong> La risposta corretta era l'opzione ${String.fromCharCode(65 + q.correct)}. <br>${q.explanation}`;
+            }
+
+            feedback.classList.remove('hidden');
+            nextBtn.classList.remove('hidden');
+            document.getElementById('quiz-score').innerText = quizScore;
+        }
+
+        function nextQuestion() {
+            quizIndex++;
+            if (quizIndex < quizData.length) {
+                renderQuizQuestion();
+            } else {
+                showQuizResults();
+            }
+        }
+
+        function showQuizResults() {
+            const card = document.getElementById('quiz-card');
+            card.innerHTML = `
+                <div class="text-center py-8 space-y-4">
+                    <div class="text-5xl">🏆</div>
+                    <h3 class="font-serif text-2xl font-bold text-amber-200">Modulo Completato!</h3>
+                    <p class="text-sm text-slate-300">Hai ottenuto un punteggio di <strong class="text-amber-400 font-mono text-xl">${quizScore}</strong> su ${quizData.length * 10} punti totali.</p>
+                    <button onclick="initQuiz()" class="px-6 py-2.5 bg-amber-600 hover:bg-amber-500 text-slate-950 font-bold rounded-xl transition shadow-lg text-sm">
+                        Ricomincia il Quiz
+                    </button>
+                </div>
+            `;
+        }
+
+        function initCanvas() {
+            canvas = document.getElementById('danteCanvas');
+            ctx = canvas.getContext('2d');
+
+            handleResize();
+            initParticlesForScene(0);
+
+            canvas.addEventListener('mousemove', handleCanvasMouseMove);
+            canvas.addEventListener('click', handleCanvasClick);
+
+            requestAnimationFrame(animateCanvas);
+        }
+
+        function handleResize() {
+            if (!canvas) return;
+            const container = canvas.parentElement;
+            canvas.width = container.clientWidth;
+            canvas.height = container.clientHeight;
+        }
+
+        function initParticlesForScene(sceneIdx) {
+            canvasParticles = [];
+            const count = sceneIdx === 3 ? 60 : 40;
+
+            for (let i = 0; i < count; i++) {
+                canvasParticles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 2.5 + 1,
+                    vx: (Math.random() - 0.5) * 0.8,
+                    vy: sceneIdx === 1 ? -Math.random() * 1.2 - 0.2 : (Math.random() - 0.5) * 0.5,
+                    alpha: Math.random() * 0.6 + 0.2,
+                    color: sceneIdx === 3 ? '#ef4444' : (sceneIdx === 1 ? '#f59e0b' : '#d4af37')
+                });
+            }
+        }
+
+        function animateCanvas(timestamp) {
+            if (!ctx || !canvas) return;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw Background Gradient
+            const bgGradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            if (currentSceneIndex === 0) {
+                bgGradient.addColorStop(0, '#0f172a');
+                bgGradient.addColorStop(1, '#1e1a15');
+            } else if (currentSceneIndex === 1) {
+                bgGradient.addColorStop(0, '#111827');
+                bgGradient.addColorStop(1, '#311b0b');
+            } else if (currentSceneIndex === 2) {
+                bgGradient.addColorStop(0, '#0c1017');
+                bgGradient.addColorStop(1, '#1e293b');
+            } else {
+                bgGradient.addColorStop(0, '#1a0505');
+                bgGradient.addColorStop(1, '#0f172a');
+            }
+            ctx.fillStyle = bgGradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw Scene-Specific Visual Graphics
+            if (currentSceneIndex === 0) {
+                drawScene1_Zara(timestamp);
+            } else if (currentSceneIndex === 1) {
+                drawScene2_Prayer(timestamp);
+            } else if (currentSceneIndex === 2) {
+                drawScene3_Sordello(timestamp);
+            } else if (currentSceneIndex === 3) {
+                drawScene4_Invective(timestamp);
+            }
+
+            // Render Particle Overlay
+            drawParticles();
+
+            requestAnimationFrame(animateCanvas);
+        }
+
+        function drawScene1_Zara(time) {
+            const w = canvas.width;
+            const h = canvas.height;
+
+            // Draw Purgatory Mountain Silhouette in background
+            ctx.fillStyle = '#0a0d14';
+            ctx.beginPath();
+            ctx.moveTo(w * 0.1, h);
+            ctx.lineTo(w * 0.5, h * 0.3);
+            ctx.lineTo(w * 0.9, h);
+            ctx.closePath();
+            ctx.fill();
+
+            // Draw Dice (Zara game symbol)
+            const diceX = w * 0.25;
+            const diceY = h * 0.45 + Math.sin(time * 0.002) * 8;
+            drawDice(diceX, diceY, 40, time);
+
+            // Draw Souls Crowd Nodes
+            const souls = [
+                { x: w * 0.55, y: h * 0.6, name: "Benincasa da Laterina", icon: "👤", role: "Decapitato da Ghin di Tacco" },
+                { x: w * 0.7, y: h * 0.5, name: "Guccio dei Tarlati", icon: "🌊", role: "Annegato in caccia/battaglia" },
+                { x: w * 0.4, y: h * 0.7, name: "Federigo Novello", icon: "⚔️", role: "Ucciso nel Casentino" },
+                { x: w * 0.8, y: h * 0.65, name: "Pier della Broccia", icon: "⚖️", role: "Vittima d'invidia di corte" }
+            ];
+
+            souls.forEach(s => {
+                const pulse = Math.sin(time * 0.003 + s.x) * 4;
+                ctx.fillStyle = 'rgba(212, 175, 55, 0.15)';
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, 24 + pulse, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#f4e9d8';
+                ctx.font = '18px sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText(s.icon, s.x, s.y + 6);
+
+                ctx.font = '11px Cinzel, serif';
+                ctx.fillStyle = '#d4af37';
+                ctx.fillText(s.name, s.x, s.y + 36);
+            });
+        }
+
+        function drawScene2_Prayer(time) {
+            const w = canvas.width;
+            const h = canvas.height;
+
+            // Summit Glowing Light (Beatrice)
+            const sumX = w * 0.5;
+            const sumY = h * 0.25;
+
+            const glow = ctx.createRadialGradient(sumX, sumY, 5, sumX, sumY, 120);
+            glow.addColorStop(0, 'rgba(253, 224, 71, 0.8)');
+            glow.addColorStop(0.5, 'rgba(212, 175, 55, 0.2)');
+            glow.addColorStop(1, 'transparent');
+            ctx.fillStyle = glow;
+            ctx.beginPath();
+            ctx.arc(sumX, sumY, 120, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Beatrice Star Symbol
+            ctx.fillStyle = '#ffffff';
+            ctx.font = '24px serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('✨', sumX, sumY + 8);
+
+            ctx.font = '12px Cinzel, serif';
+            ctx.fillStyle = '#fde047';
+            ctx.fillText('Beatrice ("Lume tra \'l vero e lo \'ntelletto")', sumX, sumY - 25);
+
+            // Ascending Prayer Rays ("Foco d'amor")
+            for (let i = 0; i < 5; i++) {
+                const rayX = w * (0.3 + i * 0.1);
+                const rayY = h * 0.8 - Math.sin(time * 0.002 + i) * 20;
+                ctx.strokeStyle = 'rgba(245, 158, 11, 0.4)';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(rayX, h * 0.85);
+                ctx.lineTo(sumX, sumY + 20);
+                ctx.stroke();
+            }
+        }
+
+        function drawScene3_Sordello(time) {
+            const w = canvas.width;
+            const h = canvas.height;
+
+            // Sordello Lion Stance Graphic
+            const x = w * 0.5;
+            const y = h * 0.5;
+
+            ctx.fillStyle = 'rgba(212, 175, 55, 0.2)';
+            ctx.beginPath();
+            ctx.arc(x, y, 65 + Math.sin(time * 0.003) * 5, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.font = '48px serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('🦁', x, y + 15);
+
+            ctx.font = '16px Cinzel, serif';
+            ctx.fillStyle = '#fef08a';
+            ctx.fillText('Sordello da Mantova', x, y - 60);
+
+            ctx.font = '12px Merriweather, serif';
+            ctx.fillStyle = '#cbd5e1';
+            ctx.fillText('"a guisa di leon quando si posa"', x, y + 85);
+
+            // Mantua Embrace Light Burst
+            const burstGlow = Math.abs(Math.sin(time * 0.0015));
+            ctx.strokeStyle = `rgba(239, 68, 68, ${0.3 + burstGlow * 0.4})`;
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.arc(x, y, 90 + burstGlow * 15, 0, Math.PI * 2);
+            ctx.stroke();
+        }
+
+        function drawScene4_Invective(time) {
+            const w = canvas.width;
+            const h = canvas.height;
+
+            // Stormy fractured background effect
+            ctx.strokeStyle = 'rgba(239, 68, 68, 0.2)';
+            ctx.lineWidth = 1.5;
+            for (let i = 0; i < 6; i++) {
+                ctx.beginPath();
+                ctx.moveTo(w * 0.1 * i, 0);
+                ctx.lineTo(w * 0.2 * i + Math.sin(time * 0.003) * 15, h);
+                ctx.stroke();
+            }
+
+            // Ship in storm metaphor
+            const shipX = w * 0.3;
+            const shipY = h * 0.45 + Math.sin(time * 0.004) * 12;
+            ctx.font = '40px serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('⛵', shipX, shipY);
+
+            ctx.font = '12px Cinzel, serif';
+            ctx.fillStyle = '#fca5a5';
+            ctx.fillText('"Nave sanza nocchiere in gran tempesta"', shipX, shipY + 45);
+
+            // Sick Florence in Bed metaphor
+            const bedX = w * 0.7;
+            const bedY = h * 0.5 + Math.cos(time * 0.004) * 8;
+            ctx.font = '40px serif';
+            ctx.fillText('🛌', bedX, bedY);
+
+            ctx.font = '12px Cinzel, serif';
+            ctx.fillStyle = '#fde047';
+            ctx.fillText('"Fiorenza... quell\'inferma in su le piume"', bedX, bedY + 45);
+        }
+
+        function drawDice(x, y, size, time) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(Math.sin(time * 0.001) * 0.2);
+
+            ctx.fillStyle = '#2a1a08';
+            ctx.strokeStyle = '#d4af37';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.roundRect(-size/2, -size/2, size, size, 8);
+            ctx.fill();
+            ctx.stroke();
+
+            // Dice pips
+            ctx.fillStyle = '#fde047';
+            ctx.beginPath();
+            ctx.arc(0, 0, 4, 0, Math.PI*2);
+            ctx.arc(-8, -8, 3, 0, Math.PI*2);
+            ctx.arc(8, 8, 3, 0, Math.PI*2);
+            ctx.fill();
+
+            ctx.restore();
+        }
+
+        function drawParticles() {
+            canvasParticles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+
+                if (p.x < 0) p.x = canvas.width;
+                if (p.x > canvas.width) p.x = 0;
+                if (p.y < 0) p.y = canvas.height;
+                if (p.y > canvas.height) p.y = 0;
+
+                ctx.fillStyle = p.color;
+                ctx.globalAlpha = p.alpha;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            ctx.globalAlpha = 1.0;
+        }
+
+        function handleCanvasMouseMove(e) {
+            // Interactive tooltip trigger check
+        }
+
+        function handleCanvasClick(e) {
+            const rect = canvas.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const clickY = e.clientY - rect.top;
+
+            // Show character details popup depending on scene
+            const sc = cantoData.scenes[currentSceneIndex];
+            if (sc.characters && sc.characters.length > 0) {
+                const charToShow = sc.characters[Math.floor(Math.random() * sc.characters.length)];
+                showTooltip(charToShow.name, charToShow.role, charToShow.desc, "📜");
+            }
+        }
+
+        function showTooltip(name, role, desc, icon = "👤") {
+            document.getElementById('tooltip-name').innerText = name;
+            document.getElementById('tooltip-role').innerText = role;
+            document.getElementById('tooltip-desc').innerText = desc;
+            document.getElementById('tooltip-icon').innerText = icon;
+
+            const tooltip = document.getElementById('canvas-tooltip');
+            tooltip.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+            tooltip.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+        }
+
+        function hideTooltip() {
+            const tooltip = document.getElementById('canvas-tooltip');
+            tooltip.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+            tooltip.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+        }
+    </script>
+</body>
+</html>
